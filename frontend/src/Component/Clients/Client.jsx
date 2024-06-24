@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from 'react'
 import Speech from "./Speech";
+import { SaveAudio } from "./SaveAudio";
 
 const Client = () => {
 
@@ -12,6 +13,7 @@ const Client = () => {
                 GO
             </button>
             <Speech />
+            <SaveAudio />
         </div>
     )
 }
