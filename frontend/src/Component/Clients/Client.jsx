@@ -1,24 +1,19 @@
 import React from "react";
 import { useEffect, useState } from 'react'
+import Speech from "./Speech";
 
-const Home = () => {
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-  
-    useEffect(() => {
-      fetch('http://localhost:3000/')
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data)
-          setIsLoading(false)
-        })
-    }, [])
+const Client = () => {
+
   
     return (
-      <>
-       <h1> hello world </h1>
-        </>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-slate-600">
+            <h1 className="text-white text-center">Demmarer l'enregistrement</h1>
+            <button className="bg-red-500 text-white font-bold w-24 h-24 rounded-full ">
+                GO
+            </button>
+            <Speech />
+        </div>
     )
 }
 
-export default Home;
+export default Client;
