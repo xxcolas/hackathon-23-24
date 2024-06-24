@@ -1,26 +1,20 @@
 import { useEffect, useState } from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from './Component/Home';
+import Client from './Component/Clients/Client';
+
 import './App.css'
 
 function App() {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('http://localhost:3000/')
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data)
-        setIsLoading(false)
-      })
-  }, [])
-
+  
   return (
     <>
-      {
-        isLoading 
-          ? <h1 className="text-3xl font-bold underline">Loading...</h1> 
-          : <h1 className="text-3xl font-bold underline">{data.message}</h1>
-      }
+      <BrowserRouter>
+        <Routes>
+            <Route index element={<Home />} />
+            <Route path="client" element={<Client />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
