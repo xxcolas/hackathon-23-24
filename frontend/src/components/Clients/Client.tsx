@@ -1,24 +1,43 @@
 import React from "react";
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
+import Speech from "./Speech";
+import SaveAudio from "./SaveAudio";
+import Popup from "./Popup";
 
-const Home = () => {
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-  
-    useEffect(() => {
-      fetch('http://localhost:3000/')
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data)
-          setIsLoading(false)
-        })
-    }, [])
-  
-    return (
-      <>
-       <h1> hello world </h1>
-        </>
-    )
-}
+const Client = () => {
+  const [openPop, setOpenPop] = useState(false);
+  const [audio, setAudio] = useState(null);
+  const [record, setRecord] = useState(false);
+  const [text, setText] = useState("");
 
-export default Home;
+  const startRecording = () => {
+    setRecord(true);
+  };
+
+  const stopRecording = () => {
+    setRecord(false);
+  };
+
+  const restartAudio = () => {
+    setOpenPop(false);
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-slate-600">
+      <h1 className="text-white text-center">Demmarer l'enregistrement</h1>
+      <Speech
+        setOpenPop={setOpenPop}
+        startRecording={startRecording}
+        stopRecording={stopRecording}
+        setText={setText}
+      />
+      <SaveAudio setAudio={setAudio} record={record} />
+
+      {openPop ? (
+        <Popup audioURL={audio} restartAudio={restartAudio} text={text} />
+      ) : null}
+    </div>
+  );
+};
+
+export default Client;
