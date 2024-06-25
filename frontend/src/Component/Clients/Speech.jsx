@@ -29,6 +29,7 @@ const SpeechRecognitionComponent = ({
         const transcriptSegment = event.results[i][0].transcript;
         if (event.results[i].isFinal) {
           setTranscript(transcriptSegment);
+          setText(transcriptSegment);
         } else {
           interimTranscript += transcriptSegment;
         }
@@ -69,9 +70,9 @@ const SpeechRecognitionComponent = ({
       >
         {isListening ? "Arrêter" : "Commencer"} l'écoute
       </button>
-      <div className="mt-4">
+      {/* <div className="mt-4">
         <p>Texte reconnu : {transcript}</p>
-      </div>
+      </div> */}
     </div>
   );
 };

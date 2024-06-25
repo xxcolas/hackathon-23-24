@@ -33,7 +33,9 @@ const Client = () => {
       />
       <SaveAudio setAudio={setAudio} record={record} />
 
-      {openPop ? <Popup audioURL={audio} restartAudio={restartAudio} /> : null}
+      {openPop ? (
+        <Popup audioURL={audio} restartAudio={restartAudio} text={text} />
+      ) : null}
     </div>
   );
 };
