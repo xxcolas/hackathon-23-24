@@ -1,8 +1,8 @@
 import express from 'express'
 import cors from "cors"
-import runDB from './config/mongoDB.js'
+import connectDB from './src/config/mongoDB.js'
 import dotenv from "dotenv"
-import initRouter from './routes/index.js'
+import initRouter from './src/routes/index.js'
 
 const app = express()
 
@@ -12,8 +12,9 @@ const PORT = process.env.PORT_BACK || 3000
 const HOSTNAME = process.env.HOSTNAME_BACK || 'localhost'
 
 app.use(cors());
+app.use(express.json())
 
-runDB()
+connectDB()
 
 initRouter(app)
 
