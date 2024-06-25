@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 import { ReactMic } from "react-mic";
 
-const SaveAudio = ({ setAudio }) => {
-  const [record, setRecord] = useState(false);
+const SaveAudio = ({ setAudio, record }) => {
+  // const [record, setRecord] = useState(false);
   const [blobURL, setBlobURL] = useState(null);
-
-  const startRecording = () => {
-    setRecord(true);
-  };
-
-  const stopRecording = () => {
-    setRecord(false);
-  };
 
   const onData = (recordedBlob) => {
     console.log("chunk of real-time data is: ", recordedBlob);
@@ -34,18 +26,18 @@ const SaveAudio = ({ setAudio }) => {
         strokeColor="#000000"
         backgroundColor="#FF4081"
       />
-      <button onClick={startRecording} type="button">
+      {/* <button onClick={startRecording} type="button">
         Start
       </button>
       <button onClick={stopRecording} type="button">
         Stop
-      </button>
-      {blobURL && (
+      </button> */}
+      {/* {blobURL && (
         <div>
           <h3>Écouter l'enregistrement :</h3>
           <audio src={blobURL} controls="controls" />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
