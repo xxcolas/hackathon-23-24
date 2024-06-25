@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const SpeechRecognitionComponent = () => {
+const SpeechRecognitionComponent = ({ setOpenPop}) => {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
 
@@ -38,6 +38,12 @@ const SpeechRecognitionComponent = () => {
 
     return () => {
       recognition.stop();
+      console.log("isListening", isListening);
+      if(isListening){
+          setOpenPop(true)
+      }else{
+          setOpenPop(false)
+      }
     };
   }, [isListening]);
 
@@ -46,8 +52,8 @@ const SpeechRecognitionComponent = () => {
   };
 
   return (
-    <div className="p-4">
-      <button onClick={handleListening} className="bg-blue-500 text-white p-2 rounded">
+    <div className="p-4 ">
+      <button onClick={handleListening} className="bg-red-500 text-white font-bold w-28 h-28 rounded-full">
         {isListening ? 'Arrêter' : 'Commencer'} l'écoute
       </button>
       <div className="mt-4">
