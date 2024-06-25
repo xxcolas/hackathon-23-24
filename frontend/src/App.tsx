@@ -4,6 +4,7 @@ import Client from "@/components/Clients/Client";
 import Home from "@/components/Home";
 import Vocal from "@/components/vocal";
 import TablePage from "@/pages/table";
+import Login from "@/pages/login";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="client" element={<Client />} />
           <Route path="vocal" element={<Vocal />} />
           <Route path="tables" element={<TablePage />} />
+          <Route path="login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </>
