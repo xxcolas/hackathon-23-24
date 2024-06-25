@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { getUserByEmail } from "../services/user.js";
+import { getUserByEmail } from "../services/userService.js";
 import { isPasswordMatching } from "../utils/password.js";
 import jwt from "jsonwebtoken"
 

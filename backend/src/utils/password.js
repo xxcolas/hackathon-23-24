@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt"
 
-export const isPasswordMatching = async (plainPassword, hashedPassword) => {
-  return bcrypt.compareSync(plainPassword, hashedPassword)
+export const isPasswordMatching = (plainPassword, hashedPassword) => {
+  return bcrypt.compare(plainPassword, hashedPassword)
 }

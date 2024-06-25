@@ -1,4 +1,4 @@
-import { authentication } from "../controllers/auth.js"
+import { authentication } from "../controllers/authController.js"
 import gptController from "../controllers/gptController.js";
 
 const initRouter = (app) => {
