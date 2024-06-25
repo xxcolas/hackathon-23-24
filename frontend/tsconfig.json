@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
+    "module": "ESNext",
     "jsx": "preserve",
 
     "baseUrl": ".",
