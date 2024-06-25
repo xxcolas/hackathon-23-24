@@ -8,7 +8,9 @@ export const colorMapping = {
 type Props<T> = { data: T[] };
 
 const Table = ({ data }: Props<any>) => {
-  const headers = Object.keys(data[0]);
+  const headers = Object.keys(data);
+  console.log("dans table ", data);
+  
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-8">
       <div className="overflow-x-auto p-4 w-full max-w-6xl">
