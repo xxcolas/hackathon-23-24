@@ -1,4 +1,4 @@
-import { getLocalStorage } from "@/localStorage";
+import { getLocalStorage } from "@/utils/localStorage";
 import { AuthToken } from "@/types/index";
 import { useEffect, useState } from "react";
 

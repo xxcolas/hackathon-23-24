@@ -1,5 +1,5 @@
 import { url } from "@/constants";
-import { setLocalStorage } from "@/localStorage";
+import { setLocalStorage } from "@/utils/localStorage";
 import React, { useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "@/hooks/auth";

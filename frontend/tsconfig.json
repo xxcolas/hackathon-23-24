@@ -7,7 +7,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "moduleResolution":"node",
   },
   "include": ["**/*.ts", "**/*.tsx", "./*.js", "./*.mjs"]
 }

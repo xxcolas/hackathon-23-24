@@ -5,3 +5,9 @@ export const getUserByEmail = async (email) => {
 
   return users[0]
 }
+
+export const updateUserById = async (id, updatedFields) => {
+  const user = await User.updateOne({ _id: id }, updatedFields)
+
+  return user
+}
