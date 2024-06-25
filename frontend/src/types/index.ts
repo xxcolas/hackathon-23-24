@@ -4,3 +4,8 @@ export type User = {
   priority: Priority;
 };
 export type Priority = "low" | "medium" | "high" | undefined;
+
+export type AuthToken = {
+  id: string;
+  iat: number;
+};
