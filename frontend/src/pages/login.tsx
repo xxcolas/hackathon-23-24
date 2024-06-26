@@ -43,7 +43,7 @@ const Login = () => {
       </div>
 
       <div className="w-1/2 flex justify-center items-center bg-gray-100">
-        <div className="p-8 rounded-lg shadow-2xl max-w-md w-full">
+        <div className="p-8 rounded-lg border bg-opacity-75 bg-white max-w-md w-full">
           <div className="flex items-center justify-center mb-6">
             <h2 className="text-2xl font-bold text-blue-900">Login</h2>
           </div>
