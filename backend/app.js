@@ -17,6 +17,7 @@ const HOSTNAME = process.env.HOSTNAME_BACK || 'localhost'
 
 app.use(cors());
 app.use(express.json())
+app.use(express.urlencoded())
 
 connectDB()
 
@@ -25,5 +26,5 @@ tableRoute(app)
 
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running at http://${HOSTNAME}:${PORT}/`);
+  console.log(`Server running at http://${HOSTNAME}:${PORT}/`);
 });

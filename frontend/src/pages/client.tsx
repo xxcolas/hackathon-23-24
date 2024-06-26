@@ -4,7 +4,7 @@ import { MicrophoneIcon, StopIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 // @ts-ignore
 import { ReactMic } from "react-mic";
-import { uploadAudioFile } from "@/services";
+import { uploadAudioFileWithTranscript } from "@/services";
 
 const Client = () => {
   const [isRecording, setIsRecording] = useState<boolean | null>(false);
@@ -24,9 +24,9 @@ const Client = () => {
     setIsRecording((prevState) => !prevState);
   };
 
-  const sendAudio = async (blob: Blob) => {
+  const sendAudio = async (blob: Blob, transcript: string) => {
     const file = new File([blob], "file")
-    await uploadAudioFile(file)
+    await uploadAudioFileWithTranscript(file, transcript)
   }
 
   useEffect(() => {
@@ -93,7 +93,7 @@ const Client = () => {
           <div className="flex gap-2 items-center w-full">
             <audio className="flex-3 w-full" src={audio} controls />
             <button
-              onClick={(e) => sendAudio(blobURL)}
+              onClick={(e) => sendAudio(blobURL, transcript)}
               className="text-white bg-green-500 py-2 rounded-lg px-6"
             >
               Envoyer

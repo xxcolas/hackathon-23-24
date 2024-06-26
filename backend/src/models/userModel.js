@@ -8,6 +8,10 @@ const userSchema = new Schema({
   password: String,
   type: String,
   file: String,
+  feedback: {
+    file: String,
+    transcript: String,
+  },
 })
 
 const User = mongoose.model('user', userSchema)

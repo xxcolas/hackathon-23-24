@@ -11,11 +11,11 @@ export const loginWithPassword = async (
   }
 };
 
-export const uploadAudioFile = async (file: Blob): Promise<User> => {
+export const uploadAudioFileWithTranscript = async (file: Blob, transcript: string): Promise<User> => {
   const formData = new FormData();
+  
   formData.append('file', file)
-
-  console.log(file)
+  formData.append('transcript', transcript)
 
   const options = {
     method: 'PATCH',
