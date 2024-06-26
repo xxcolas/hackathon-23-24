@@ -1,17 +1,11 @@
 import React from "react";
 import Table from "@/components/table";
+// @ts-ignore
 import { users } from "@/mocks";
 import { useAuth } from "@/hooks/auth";
 
 const TablePage = () => {
-  const { auth } = useAuth();
-  console.log(auth);
-
-  return (
-    <div>
-      <Table data={users} />
-    </div>
-  );
+  return <Table data={users} />;
 };
 
 export default TablePage;
