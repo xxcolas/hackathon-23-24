@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Table from "@/components/table";
-import { getAllClient } from "@/hooks/client.js";
+import { getAllClient } from "@/hooks/client";
 
 const TablePage = () => {
   const [client, setClient] = useState([]);
 
-
-    const fetchClients = async() => {
+  const fetchClients = async () => {
     const clientData = await getAllClient();
-    const res = await clientData.json()
-    console.log(res);
-    
+    clientData.map((client) => {
+      if (!client.priority) client.priority = "undefined";
+    });
     setClient(clientData);
-  }
+  };
 
   useEffect(() => {
     fetchClients();

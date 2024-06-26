@@ -1,6 +1,7 @@
 import { url } from "@/constants";
 import { setLocalStorage } from "@/localStorage";
 import React, { useState } from "react";
+// @ts-ignore
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "@/hooks/auth";
 
