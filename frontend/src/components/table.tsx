@@ -11,6 +11,7 @@ const Table = ({ data }: Props<any>) => {
   const headers = Object.keys(data);
   console.log("dans table ", data);
   
+  
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-8">
       <div className="overflow-x-auto p-4 w-full max-w-6xl">
@@ -26,6 +27,7 @@ const Table = ({ data }: Props<any>) => {
                     {header}
                   </th>
                 ))}
+                <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Message</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">

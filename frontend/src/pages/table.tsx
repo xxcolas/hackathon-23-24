@@ -5,8 +5,12 @@ import { getAllClient } from "@/hooks/client.js";
 const TablePage = () => {
   const [client, setClient] = useState([]);
 
-  async function fetchClients() {
+
+    const fetchClients = async() => {
     const clientData = await getAllClient();
+    const res = await clientData.json()
+    console.log(res);
+    
     setClient(clientData);
   }
 
