@@ -6,6 +6,7 @@ export type Clients = {
   descriptions: string[];
   tel: string;
   _id: string;
+  messages: {}[];
 };
 export type Priority = "low" | "medium" | "high" | "undefined";
 
