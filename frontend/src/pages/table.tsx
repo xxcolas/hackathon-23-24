@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@/components/table";
-// @ts-ignore
-import { users } from "@/mocks";
-import { useAuth } from "@/hooks/auth";
+import { getAllClient } from "@/hooks/client";
 
 const TablePage = () => {
-  return <Table data={users} />;
+  const [client, setClient] = useState([]);
+
+  const fetchClients = async () => {
+    const clientData = await getAllClient();
+    clientData.map((client) => {
+      if (!client.priority) client.priority = "undefined";
+    });
+    setClient(clientData);
+  };
+
+  useEffect(() => {
+    fetchClients();
+  }, []);
+
+  return (
+    <div>
+      <Table data={client} />
+    </div>
+  );
 };
 
 export default TablePage;

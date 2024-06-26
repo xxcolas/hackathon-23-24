@@ -1,6 +1,7 @@
 import { url } from "@/constants";
 import { setLocalStorage } from "@/localStorage";
 import React, { useState } from "react";
+// @ts-ignore
 import { jwtDecode } from "jwt-decode";
 import logo from "@/assets/Logo_Calmedica.svg";
 const Login = () => {

@@ -3,6 +3,7 @@ import cors from "cors"
 import connectDB from './src/config/mongoDB.js'
 import dotenv from "dotenv"
 import initRouter from './src/routes/index.js'
+import tableRoute from './src/routes/tableRoute.js'
 
 const app = express()
 
@@ -17,6 +18,8 @@ app.use(express.json())
 connectDB()
 
 initRouter(app)
+tableRoute(app)
+
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running at http://${HOSTNAME}:${PORT}/`);
