@@ -26,8 +26,9 @@ const Table = ({ data }: Props<Clients>) => {
         <table className="rounded-lg  shadow-md mx-auto table-auto divide-y divide-gray-200 bg-white">
           <thead className="bg-blue-600 text-white uppercase font-medium text-xs">
             <tr>
-              <th className={headerClassnames}>priority</th>
-              <th className={headerClassnames}>email</th>
+              <th className={headerClassnames}>Priorité</th>
+              <th className={headerClassnames}>Prénom</th>
+              <th className={headerClassnames}>Email</th>
               <th className={headerClassnames}>Téléphone</th>
               <th className={headerClassnames}>Message</th>
             </tr>
@@ -43,6 +44,7 @@ const Table = ({ data }: Props<Clients>) => {
                     className="h-4 w-4 rounded-full"
                   />
                 </td>
+                <td className={headerClassnames}>{item.firstname}</td>
                 <td className={headerClassnames}>{item.email}</td>
                 <td className={headerClassnames}>{item.tel}</td>
                 <td className="flex justify-center items-center">
