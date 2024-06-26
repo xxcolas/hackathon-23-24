@@ -15,6 +15,7 @@ const Message = ({ data }) => {
       text: message,
       sender: "PRACTITIONER",
       date: new Date().toLocaleString(),
+      type: "text"
     }
 
     if (message) {
@@ -28,6 +29,12 @@ const Message = ({ data }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ message: practitionerMessage }),
+    }).then((res) => {
+      // scroll down the chat
+      let chat = document.querySelector(".container-messages");
+      chat.scrollTop = chat.scrollHeight;
+    }).catch((err) => {
+      console.error(err);
     });
   };
 
@@ -39,7 +46,7 @@ const Message = ({ data }) => {
           <XMarkIcon className="size-4" />
         </button>
       </article>
-      <div className="overflow-y-scroll h-[500px] pb-28">
+      <div className="container-messages overflow-y-scroll h-[500px] pb-28">
         {client.messages.map((item, index) => (
           <div
             key={index}
@@ -57,7 +64,7 @@ const Message = ({ data }) => {
       </div>
 
       {/* Input field */}
-      <div className="absolute bottom-0 left-0 right-0 px-4 py-2 bg-white">
+      <form className="absolute bottom-0 left-0 right-0 px-4 py-2 bg-white" onSubmit={(e) => e.preventDefault()}>
         <div className="relative">
           <input type="email"
             className="peer py-3 px-4 pe-16 block w-full bg-gray-100 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none border border-gray-300 "
@@ -65,7 +72,7 @@ const Message = ({ data }) => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-          <button type="button"
+          <button type="submit"
             className="absolute inset-y-0 right-0 flex items-center px-4 bg-gray-100 m-1 text-gray-700"
             onClick={() => sendMessage(client._id)}
           >
@@ -74,7 +81,7 @@ const Message = ({ data }) => {
             </svg>
           </button>
         </div>
-      </div>
+      </form>
     </section>
   );
 };
