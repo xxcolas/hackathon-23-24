@@ -4,22 +4,19 @@ import { MicrophoneIcon, StopIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 // @ts-ignore
 import { ReactMic } from "react-mic";
+import { uploadAudioFileWithTranscript } from "@/services";
 
 const Client = () => {
-  // const [isListening, setIsListening] = useState(false);
   const [isRecording, setIsRecording] = useState<boolean | null>(false);
 
   const [audio, setAudio] = useState(null);
   const [blobURL, setBlobURL] = useState(null);
   const [text, setText] = useState("");
-  // const [text, setText] = useState(
-  //   "Super trop cool, je suis un supet text de malde mentale ahaha. Super trop cool, je suis un supet text de malde mentale ahaha. Super trop cool, je suis un supet text de malde mentale ahaha. Super trop cool, je suis un supet text de malde mentale ahaha. Super trop cool, je suis un supet text de malde mentale ahaha."
-  // );
   const [transcript, setTranscript] = useState("");
 
   const onStop = (recordedBlob) => {
-    setBlobURL(URL.createObjectURL(recordedBlob.blob));
-    setAudio(URL.createObjectURL(recordedBlob.blob));
+    setBlobURL(recordedBlob.blob);
+    setAudio(recordedBlob.blob);
   };
 
   const handleRecording = () => {
@@ -27,7 +24,10 @@ const Client = () => {
     setIsRecording((prevState) => !prevState);
   };
 
-  const sendAudio = () => {};
+  const sendAudio = async (blob: Blob, transcript: string) => {
+    const file = new File([blob], "file")
+    await uploadAudioFileWithTranscript(file, transcript)
+  }
 
   useEffect(() => {
     if (!("webkitSpeechRecognition" in window)) {
@@ -69,9 +69,16 @@ const Client = () => {
       <button
         onClick={handleRecording}
         data-state={isRecording ? "recording" : "idle"}
-        className="bg-green-400 data-[state=recording]:bg-red-500 text-white font-bold size-28 p-8 rounded-full"
+        data-audio={audio ? "true" : "false"}
+        className="bg-green-400 data-[state=recording]:bg-red-500 flex justify-center items-center text-white font-bold size-28 p-8 rounded-full data-[state=idle]:data-[audio=true]:rounded-lg"
       >
-        {isRecording ? <StopIcon /> : <MicrophoneIcon />}
+        {isRecording ? (
+          <StopIcon />
+        ) : audio ? (
+          "Recommencer"
+        ) : (
+          <MicrophoneIcon />
+        )}
       </button>
       <ReactMic
         record={isRecording}
@@ -81,12 +88,12 @@ const Client = () => {
       />
       {!isRecording && audio && (
         <div className="m-8 flex flex-col items-center rounded-lg gap-2">
-          <p className="p-4 rounded-lg bg-gray-100 truncate">{text}</p>
+          <p className="p-4 rounded-lg bg-gray-100 truncate min-w-96">{text}</p>
 
-          <div className="flex gap-2 items-center w-full">
+          <div className="flex flex-col md:flex-wrap gap-2 items-center w-full">
             <audio className="flex-3 w-full" src={audio} controls />
             <button
-              onClick={sendAudio}
+              onClick={(e) => sendAudio(blobURL, transcript)}
               className="text-white bg-green-500 py-2 rounded-lg px-6"
             >
               Envoyer
