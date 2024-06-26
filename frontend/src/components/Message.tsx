@@ -1,21 +1,47 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import React from "react";
+import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const Message = ({ data }) => {
   let [searchParams, setSearchParams] = useSearchParams();
+  const [message, setMessage] = useState("");
+
   const id = searchParams.get("id") || "";
   let client = data.find((item) => item._id === id);
   if (!client) return null;
+
+  const sendMessage = (id) => {
+    let practitionerMessage = {
+      text: message,
+      sender: "PRACTITIONER",
+      date: new Date().toLocaleString(),
+    }
+
+    if (message) {
+      client.messages.push(practitionerMessage);
+      setMessage("");
+    }
+
+    fetch(`http://localhost:3000/client/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message: practitionerMessage }),
+    }).then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
-    <section className="absolute animate-slideUp h-4/5 w-[400px] bg-white rounded-lg border-solid overflow-y-hidden border-blue-300 right-5 bottom-5 shadow-md ">
+    <section className="absolute animate-slideUp h-4/5 w-[400px] bg-white rounded-lg border-solid overflow-y-hidden border-blue-300 right-5 bottom-5 shadow-md">
       <article className="w-full rounded-t-lg px-4 bg-blue-500 py-2 text-lg text-white flex justify-between">
         <span>Historique des messages - {client.firstname}</span>
         <button onClick={() => setSearchParams({})}>
           <XMarkIcon className="size-4" />
         </button>
       </article>
-      <div className="overflow-y-scroll h-[500px]">
+      <div className="overflow-y-scroll h-[500px] pb-28">
         {client.messages.map((item, index) => (
           <div
             key={index}
@@ -30,6 +56,26 @@ const Message = ({ data }) => {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Input field */}
+      <div className="absolute bottom-0 left-0 right-0 px-4 py-2 bg-white">
+        <div className="relative">
+          <input type="email"
+            className="peer py-3 px-4 pe-16 block w-full bg-gray-100 rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none border border-gray-300 "
+            placeholder="Type a message..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button type="button"
+            className="absolute inset-y-0 right-0 flex items-center px-4 bg-gray-100 m-1 text-gray-700"
+            onClick={() => sendMessage(client._id)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+            </svg>
+          </button>
+        </div>
       </div>
     </section>
   );
