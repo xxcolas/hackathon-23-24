@@ -1,5 +1,5 @@
 import { url } from "@/constants";
-import { setLocalStorage } from "@/localStorage";
+import { setLocalStorage } from "@/utils/localStorage";
 import React, { useState } from "react";
 // @ts-ignore
 import { jwtDecode } from "jwt-decode";
