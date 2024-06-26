@@ -7,6 +7,7 @@ import multer from 'multer'
 import tableRoute from './src/routes/tableRoute.js'
 
 const app = express()
+
 const upload = multer({ dest: "public/uploads/" });
 
 dotenv.config({ path: ".env.local", override: true });

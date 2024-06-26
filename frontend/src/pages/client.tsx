@@ -4,6 +4,7 @@ import { MicrophoneIcon, StopIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 // @ts-ignore
 import { ReactMic } from "react-mic";
+import { uploadAudioFile } from "@/services";
 
 const Client = () => {
   const [isRecording, setIsRecording] = useState<boolean | null>(false);
@@ -14,8 +15,8 @@ const Client = () => {
   const [transcript, setTranscript] = useState("");
 
   const onStop = (recordedBlob) => {
-    setBlobURL(URL.createObjectURL(recordedBlob.blob));
-    setAudio(URL.createObjectURL(recordedBlob.blob));
+    setBlobURL(recordedBlob.blob);
+    setAudio(recordedBlob.blob);
   };
 
   const handleRecording = () => {
@@ -23,7 +24,10 @@ const Client = () => {
     setIsRecording((prevState) => !prevState);
   };
 
-  const sendAudio = () => {};
+  const sendAudio = async (blob: Blob) => {
+    const file = new File([blob], "file")
+    await uploadAudioFile(file)
+  }
 
   useEffect(() => {
     if (!("webkitSpeechRecognition" in window)) {
@@ -89,7 +93,7 @@ const Client = () => {
           <div className="flex gap-2 items-center w-full">
             <audio className="flex-3 w-full" src={audio} controls />
             <button
-              onClick={sendAudio}
+              onClick={(e) => sendAudio(blobURL)}
               className="text-white bg-green-500 py-2 rounded-lg px-6"
             >
               Envoyer

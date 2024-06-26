@@ -1,13 +1,14 @@
+import mongoose from "mongoose"
 import User from "../models/userModel.js"
 
 export const getUserByEmail = async (email) => {
-  const users = await User.find({ email })
-
-  return users[0]
+  return await User.findOne({ email })
 }
 
-export const updateUserById = async (id, updatedFields) => {
-  const user = await User.updateOne({ _id: id }, updatedFields)
+export const updateUserById = async (id, updatedUser) => {
+  return await User.findOneAndUpdate({ _id: id }, updatedUser, { returnDocument: 'after' })
+}
 
-  return user
+export const getUserById = async (id) => {
+  return await User.findOne({ _id: id })
 }

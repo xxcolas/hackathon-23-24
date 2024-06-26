@@ -1,4 +1,4 @@
-export type Clients = {
+export type User = {
   email: string;
   priority: Priority;
   type: "PATIENT" | "PRACTITIONER";
