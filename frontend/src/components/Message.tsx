@@ -1,8 +1,10 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import React from "react";
+import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const Message = ({ data }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   let [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get("id") || "";
   let client = data.find((item) => item._id === id);
@@ -23,7 +25,29 @@ const Message = ({ data }) => {
             className="group chat data-[state=patient]:chat-start data-[state=practitioner]:chat-end"
           >
             <div className="chat-bubble bg-gray-200 group-data-[state=practitioner]:bg-blue-600 group-data-[state=practitioner]:text-white text-black">
-              {item.text}
+              {item.type === "text" ? (
+                <p>{item.text}</p>
+              ) : (
+                <div className="flex flex-col h-full flex-end">
+                  <div>
+                    <p>{item.text}</p>
+                    {isExpanded && (
+                      <>
+                        <audio controls>
+                          <source src={item.file} type="audio/wav" />
+                        </audio>
+                        <p>{item.transcript}</p>
+                      </>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    className="flex mt-2 text-gray-400 flex-end text-sm"
+                  >
+                    {isExpanded ? "Moins" : "Plus"}
+                  </button>
+                </div>
+              )}
             </div>
             <div className="chat-footer">
               <time className="text-xs opacity-50">{item.date}</time>
