@@ -51,9 +51,9 @@ const Message = ({ data }) => {
           <div
             key={index}
             data-state={item.sender === "PATIENT" ? "patient" : "practitioner"}
-            className="group chat data-[state=patient]:chat-end data-[state=practitioner]:chat-start"
+            className="group chat data-[state=patient]:chat-start data-[state=practitioner]:chat-end"
           >
-            <div className="chat-bubble bg-gray-200 group-data-[state=patient]:bg-blue-600 group-data-[state=patient]:text-white text-black">
+            <div className="chat-bubble bg-gray-200 group-data-[state=practitioner]:bg-blue-600 group-data-[state=practitioner]:text-white text-black">
               {item.text}
             </div>
             <div className="chat-footer">
