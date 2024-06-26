@@ -22,7 +22,7 @@ const Message = ({ data }) => {
             data-state={item.sender === "PATIENT" ? "patient" : "practitioner"}
             className="group chat data-[state=patient]:chat-start data-[state=practitioner]:chat-end"
           >
-            <div className="chat-bubble bg-blue-600 group-data-[state=practitioner]:bg-gray-200 group-data-[state=practitioner]:text-black text-white">
+            <div className="chat-bubble bg-gray-200 group-data-[state=practitioner]:bg-blue-600 group-data-[state=practitioner]:text-white text-black">
               {item.text}
             </div>
             <div className="chat-footer">
