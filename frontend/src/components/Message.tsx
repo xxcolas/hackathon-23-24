@@ -28,8 +28,6 @@ const Message = ({ data }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ message: practitionerMessage }),
-    }).then((res) => {
-      console.log(res);
     });
   };
 
