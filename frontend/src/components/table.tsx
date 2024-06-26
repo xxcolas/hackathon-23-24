@@ -19,7 +19,7 @@ const Table = ({ data }: Props<Clients>) => {
       <div className="overflow-x-auto p-4 w-full max-w-6xl">
         <div className="rounded-lg overflow-hidden shadow-md">
           <table className="min-w-full divide-y divide-gray-200 bg-white">
-            <thead className="bg-orange-500">
+            <thead className="bg-blue-600">
               <tr>
                 <th className={headerClassnames}>priority</th>
                 <th className={headerClassnames}>email</th>
@@ -29,7 +29,7 @@ const Table = ({ data }: Props<Clients>) => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {data.map((item, index) => (
-                <tr key={index} className="hover:bg-orange-100">
+                <tr key={index} className="hover:bg-blue-100">
                   <td>
                     <div
                       style={{

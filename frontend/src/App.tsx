@@ -1,6 +1,7 @@
+// @ts-ignore
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
-import Client from "@/components/Clients/Client";
+import Client from "@/pages/client";
 import Home from "@/components/Home";
 import Vocal from "@/components/vocal";
 import TablePage from "@/pages/table";

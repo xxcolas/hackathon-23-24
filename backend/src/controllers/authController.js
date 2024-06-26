@@ -14,11 +14,10 @@ export const authentication = async (req, res) => {
     }
 
     if (!isPasswordMatching(password, user.password)) {
-      console.log(password, user.password)
       return res.status(404).json({ error: "User not found" })
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+    const token = jwt.sign({ id: user._id, type: user.type }, process.env.JWT_SECRET)
 
     return res.status(200).json({ token: token })
   } catch (error) {
