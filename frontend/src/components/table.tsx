@@ -1,5 +1,5 @@
 import { Clients } from "@/types/index";
-import React from "react";
+import React, { useState } from "react";
 import Message from "./Message";
 
 export const colorMapping = {
@@ -8,17 +8,25 @@ export const colorMapping = {
   high: "#ff0000",
   undefined: "#aaa",
 };
+
 type Props<T> = { data: T[] };
 
-const openMessage = () => {
-  console.log("open message");
-};
-
 const Table = ({ data }: Props<Clients>) => {
-  console.log(data.map((i) => i));
+  const [id, setId] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
 
   const headerClassnames =
     "px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider";
+
+  const openMessage = (id) => {
+    setId(id);
+    setShowMessage(!showMessage);
+  };
+
+  const closeMessage = () => {
+    setShowMessage(false);
+  };
+
   return (
     <>
       <div className="flex justify-center items-center min-h-screen bg-gray-100 p-8">
@@ -47,7 +55,7 @@ const Table = ({ data }: Props<Clients>) => {
                     <td>{item.email}</td>
                     <td>{item.tel}</td>
                     <td>
-                      <div onClick={openMessage}>
+                      <div onClick={() => openMessage(item._id)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -71,7 +79,9 @@ const Table = ({ data }: Props<Clients>) => {
           </div>
         </div>
       </div>
-      <Message messages={data} />
+      {showMessage && (
+        <Message data={data} id={id} closeMessage={closeMessage} />
+      )}
     </>
   );
 };
