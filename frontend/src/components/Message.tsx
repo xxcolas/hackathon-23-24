@@ -1,8 +1,10 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import * as Dialog from "@radix-ui/react-dialog";
+import { Clients, type Message } from "@/types";
 
-const Message = ({ data }) => {
+const Message = ({ data }: { data: Clients[] }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   let [searchParams, setSearchParams] = useSearchParams();
@@ -13,7 +15,7 @@ const Message = ({ data }) => {
   if (!client) return null;
 
   const sendMessage = (id) => {
-    let practitionerMessage = {
+    let practitionerMessage: Message = {
       text: message,
       sender: "PRACTITIONER",
       date: new Date().toLocaleString(),
@@ -64,21 +66,31 @@ const Message = ({ data }) => {
                 <div className="flex flex-col h-full flex-end">
                   <div>
                     <p>{item.text}</p>
-                    {isExpanded && (
-                      <>
-                        <audio controls>
-                          <source src={item.file} type="audio/wav" />
-                        </audio>
-                        <p>{item.transcript}</p>
-                      </>
+                    {(item.file || item.transcript) && (
+                      <Dialog.Root>
+                        <Dialog.Trigger asChild>
+                          <button className="flex mt-2 text-gray-300 hover:bg-blue-800 px-2 rounded py-1 flex-end text-sm">
+                            Plus
+                          </button>
+                        </Dialog.Trigger>
+                        <Dialog.Portal>
+                          <Dialog.Overlay className="bg-black/60 fixed inset-0" />
+                          <Dialog.Content className="fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-md bg-white p-6 focus:outline-none flex flex-col items-center gap-2">
+                            {item.file && (
+                              <audio controls className="w-full">
+                                <source src={item.file} type="audio/wav" />
+                              </audio>
+                            )}
+                            {item.transcript && (
+                              <p className="w-full p-3 rounded bg-gray-100">
+                                {item.transcript}
+                              </p>
+                            )}
+                          </Dialog.Content>
+                        </Dialog.Portal>
+                      </Dialog.Root>
                     )}
                   </div>
-                  <button
-                    onClick={() => setIsExpanded(!isExpanded)}
-                    className="flex mt-2 text-gray-400 flex-end text-sm"
-                  >
-                    {isExpanded ? "Moins" : "Plus"}
-                  </button>
                 </div>
               )}
             </div>
