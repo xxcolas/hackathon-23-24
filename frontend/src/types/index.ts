@@ -1,5 +1,6 @@
 export type User = {
   email: string;
+  firstname: string;
   priority: Priority;
   type: "PATIENT" | "PRACTITIONER";
   description: string;
