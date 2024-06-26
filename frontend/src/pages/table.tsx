@@ -17,11 +17,7 @@ const TablePage = () => {
     fetchClients();
   }, []);
 
-  return (
-    <div>
-      <Table data={client} />
-    </div>
-  );
+  return <Table data={client} />;
 };
 
 export default TablePage;
