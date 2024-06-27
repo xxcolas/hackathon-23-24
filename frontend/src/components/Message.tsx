@@ -85,7 +85,7 @@ const Message = ({ data }: { data: User[] }) => {
                             {item.audio.file && (
                               <audio controls className="w-full">
                                 <source
-                                  src={item.audio.file}
+                                  src={`data:audio/wav;base64,${item.audio.file}`}
                                   type="audio/wav"
                                 />
                               </audio>
