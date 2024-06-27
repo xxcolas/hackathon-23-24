@@ -3,6 +3,7 @@ import React from "react"
 import Message from "./Message"
 import { useSearchParams } from "react-router-dom"
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline"
+import { psychologicalState } from "@/constants"
 
 export const colorMapping = {
   low: "#00ff6a",
@@ -10,41 +11,13 @@ export const colorMapping = {
   high: "#f54e25",
   undefined: "#aaa",
 }
-const PatientState = ({ state }: { state: string }) => {
-  switch (state) {
-    case "anxious":
-      return (
-        <div className="bg-red-100 text-red-400 border border-red-300 px-2 text-sm rounded-2xl flex justify-center items-center">
-          Anxieux
-        </div>
-      )
-    case "stable":
-      return (
-        <div className="bg-green-100 text-green-400 border border-green-300 px-2 text-sm rounded-2xl flex justify-center items-center">
-          Stable
-        </div>
-      )
-    case "angry":
-      return (
-        <div className="bg-yellow-100 text-yellow-400 border border-yellow-300 px-2 text-sm rounded-2xl flex justify-center items-center">
-          En colère
-        </div>
-      )
-    case "sad":
-      return (
-        <div className="bg-blue-100 text-blue-400 border border-blue-300 px-2 text-sm rounded-2xl flex justify-center items-center">
-          Triste
-        </div>
-      )
-
-    default:
-      return (
-        <div className="bg-gray-100 text-gray-400 border border-gray-300 px-2 text-sm rounded-2xl flex justify-center items-center">
-          Non défini
-        </div>
-      )
-  }
-}
+const PatientState = ({ state }: { state: string }) => (
+  <div
+    className={`bg-${psychologicalState[state].color}-100 text-${psychologicalState[state].color}-400 border border-${psychologicalState[state].color}-300 px-2 text-sm rounded-2xl flex justify-center items-center`}
+  >
+    {psychologicalState[state].string}
+  </div>
+)
 
 type Props<T> = { data: T[] }
 
