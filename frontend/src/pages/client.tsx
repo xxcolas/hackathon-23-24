@@ -91,7 +91,7 @@ const Client = () => {
         strokeColor="#2563eb"
       />
       {!isRecording && audio && (
-        <div className="m-8 flex flex-col items-center rounded-lg gap-2 min-w-full max-w-96">
+        <div className="m-8 flex flex-col items-center rounded-lg gap-2 min-w-full max-w-96 px-4">
           <p className="p-4 rounded-lg bg-gray-100">{text}</p>
 
           <div className="flex flex-col md:flex-wrap gap-2 items-center w-full">
