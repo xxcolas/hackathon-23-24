@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 /* use tailwind require */
-
+html,
+body {
+  overflow-x: hidden;
+}
 * {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
