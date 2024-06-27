@@ -2,8 +2,11 @@ import { url } from "@/constants"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import React, { useState } from "react"
 import { useSearchParams } from "react-router-dom"
+import { User, type Message } from "@/types"
+import * as Dialog from "@radix-ui/react-dialog"
+import { VisuallyHidden } from "@radix-ui/themes"
 
-const Message = ({ data }) => {
+const Message = ({ data }: { data: User[] }) => {
   let [searchParams, setSearchParams] = useSearchParams()
   const [message, setMessage] = useState("")
 
@@ -12,7 +15,7 @@ const Message = ({ data }) => {
   if (!client) return null
 
   const sendMessage = (id) => {
-    let practitionerMessage = {
+    let practitionerMessage: Message = {
       text: message,
       sender: "PRACTITIONER",
       date: new Date().toLocaleString(),
@@ -56,8 +59,49 @@ const Message = ({ data }) => {
             data-state={item.sender === "PATIENT" ? "patient" : "practitioner"}
             className="group chat data-[state=patient]:chat-start data-[state=practitioner]:chat-end"
           >
-            <div className="chat-bubble bg-gray-200 group-data-[state=practitioner]:bg-blue-600 group-data-[state=practitioner]:text-white text-black">
-              {item.text}
+            <div className="chat-bubble bg-gray-200 group-data-[state=patient]:bg-blue-600 group-data-[state=patient]:text-white text-black">
+              {item.type === "text" ? (
+                <p>{item.text}</p>
+              ) : (
+                <div className="flex flex-col h-full flex-end">
+                  <div>
+                    <p>{item.text}</p>
+                    {item.audio && (
+                      <Dialog.Root>
+                        <Dialog.Trigger asChild>
+                          <button className="flex mt-2 text-gray-300 hover:bg-blue-800 px-2 rounded py-1 flex-end text-sm">
+                            Plus
+                          </button>
+                        </Dialog.Trigger>
+                        <Dialog.Portal>
+                          <Dialog.Overlay className="bg-black/60 fixed inset-0" />
+                          <Dialog.Content
+                            aria-describedby={undefined}
+                            className="fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-md bg-white p-6 focus:outline-none flex flex-col items-center gap-2"
+                          >
+                            <VisuallyHidden asChild>
+                              <Dialog.Title />
+                            </VisuallyHidden>
+                            {item.audio.file && (
+                              <audio controls className="w-full">
+                                <source
+                                  src={item.audio.file}
+                                  type="audio/wav"
+                                />
+                              </audio>
+                            )}
+                            {item.audio.transcript && (
+                              <p className="w-full p-3 rounded bg-gray-100">
+                                {item.audio.transcript}
+                              </p>
+                            )}
+                          </Dialog.Content>
+                        </Dialog.Portal>
+                      </Dialog.Root>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
             <div className="chat-footer">
               <time className="text-xs opacity-50">{item.date}</time>
