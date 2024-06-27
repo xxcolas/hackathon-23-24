@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const messageSchema = new Schema({
   text: String,
   type: String,
-  date: String,
+  date: Date,
   sender: String,
   audio: {
     file: String,

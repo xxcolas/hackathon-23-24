@@ -1,6 +1,5 @@
 import getChatResponse from "../services/mistralService.js"
 import { getUserById, getUserMessagesWithFile, updateUserById } from "../services/userService.js"
-import { getBase64FileFromPath } from "../utils/file.js"
 
 export const updateUser = async (req, res) => {
   const { id } = req.params
@@ -11,7 +10,7 @@ export const updateUser = async (req, res) => {
 
   const audioMessage = {
     type: "audio",
-    date: "test",
+    date: new Date(),
     sender: "PATIENT",
     audio: {
       file: file.path,
@@ -21,7 +20,6 @@ export const updateUser = async (req, res) => {
   }
 
   const user = await getUserById(id)
-  console.log(user)
 
   const updateUserResponse = await updateUserById(id, { 
     messages: [...user.messages, audioMessage], 
