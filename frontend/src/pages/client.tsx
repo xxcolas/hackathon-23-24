@@ -19,7 +19,7 @@ const Client = () => {
 
   const onStop = (recordedBlob) => {
     setBlobURL(recordedBlob.blob)
-    setAudio(recordedBlob.blob)
+    setAudio(URL.createObjectURL(recordedBlob.blob))
   }
 
   const handleRecording = () => {
@@ -74,12 +74,12 @@ const Client = () => {
         onClick={handleRecording}
         data-state={isRecording ? "recording" : "idle"}
         data-audio={audio ? "true" : "false"}
-        className="bg-green-400 data-[state=recording]:bg-red-500 flex justify-center items-center text-white font-bold size-28 p-8 rounded-full data-[state=idle]:data-[audio=true]:rounded-lg"
+        className="bg-green-400 data-[state=recording]:bg-red-500 flex justify-center items-center text-white font-bold size-36 p-12 rounded-full"
       >
         {isRecording ? (
           <StopIcon />
         ) : audio ? (
-          "Recommencer"
+          "RECOMMENCER"
         ) : (
           <MicrophoneIcon />
         )}
@@ -91,11 +91,11 @@ const Client = () => {
         strokeColor="#2563eb"
       />
       {!isRecording && audio && (
-        <div className="m-8 flex flex-col items-center rounded-lg gap-2">
-          <p className="p-4 rounded-lg bg-gray-100 truncate min-w-96">{text}</p>
+        <div className="m-8 flex flex-col items-center rounded-lg gap-2 min-w-full max-w-96 px-4">
+          <p className="p-4 rounded-lg bg-gray-100">{text}</p>
 
           <div className="flex flex-col md:flex-wrap gap-2 items-center w-full">
-            <audio className="flex-3 w-full" src={audio} controls />
+            <audio className="flex-3 w-full max-w-96" src={audio} controls />
             <button
               onClick={(e) => sendAudio(blobURL, transcript)}
               className="text-white bg-green-500 py-2 rounded-lg px-6"
