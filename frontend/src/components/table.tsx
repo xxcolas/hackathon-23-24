@@ -1,24 +1,24 @@
-import { Clients } from "@/types/index";
-import React from "react";
-import Message from "./Message";
-import { useSearchParams } from "react-router-dom";
-import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
+import { User } from "@/types/index"
+import React from "react"
+import Message from "./Message"
+import { useSearchParams } from "react-router-dom"
+import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline"
 
 export const colorMapping = {
   low: "#00ff6a",
   medium: "#f5d507",
   high: "#f54e25",
   undefined: "#aaa",
-};
+}
 
-type Props<T> = { data: T[] };
+type Props<T> = { data: T[] }
 
-const Table = ({ data }: Props<Clients>) => {
-  let [searchParams, setSearchParams] = useSearchParams();
+const Table = ({ data }: Props<User>) => {
+  let [searchParams, setSearchParams] = useSearchParams()
 
-  const headerClassnames = "px-6 py-3 text-left w-fit";
+  const headerClassnames = "px-6 py-3 text-left w-fit"
 
-  const showMessage = searchParams.get("id") !== null;
+  const showMessage = searchParams.get("id") !== null
 
   return (
     <>
@@ -62,7 +62,7 @@ const Table = ({ data }: Props<Clients>) => {
       </div>
       {showMessage && <Message data={data} />}
     </>
-  );
-};
+  )
+}
 
-export default Table;
+export default Table

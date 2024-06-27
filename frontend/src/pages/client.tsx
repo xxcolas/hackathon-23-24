@@ -1,68 +1,72 @@
-import React from "react";
-import { MicrophoneIcon, StopIcon } from "@heroicons/react/24/outline";
+import React from "react"
+import { MicrophoneIcon, StopIcon } from "@heroicons/react/24/outline"
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 // @ts-ignore
-import { ReactMic } from "react-mic";
-import { uploadAudioFileWithTranscript } from "@/services";
+import { ReactMic } from "react-mic"
+import { uploadAudioFileWithTranscript } from "@/services"
+import { useSearchParams } from "react-router-dom"
 
 const Client = () => {
-  const [isRecording, setIsRecording] = useState<boolean | null>(false);
+  const [searchParams, _] = useSearchParams()
 
-  const [audio, setAudio] = useState(null);
-  const [blobURL, setBlobURL] = useState(null);
-  const [text, setText] = useState("");
-  const [transcript, setTranscript] = useState("");
+  const [isRecording, setIsRecording] = useState<boolean | null>(false)
+
+  const [audio, setAudio] = useState(null)
+  const [blobURL, setBlobURL] = useState(null)
+  const [text, setText] = useState("")
+  const [transcript, setTranscript] = useState("")
 
   const onStop = (recordedBlob) => {
-    setBlobURL(recordedBlob.blob);
-    setAudio(recordedBlob.blob);
-  };
+    setBlobURL(recordedBlob.blob)
+    setAudio(recordedBlob.blob)
+  }
 
   const handleRecording = () => {
-    setAudio(null);
-    setIsRecording((prevState) => !prevState);
-  };
+    setAudio(null)
+    setIsRecording((prevState) => !prevState)
+  }
 
   const sendAudio = async (blob: Blob, transcript: string) => {
+    const userId = searchParams.get("uid")
     const file = new File([blob], "file")
-    await uploadAudioFileWithTranscript(file, transcript)
+    await uploadAudioFileWithTranscript(userId, file, transcript)
   }
 
   useEffect(() => {
     if (!("webkitSpeechRecognition" in window)) {
-      alert("Votre navigateur ne supporte pas la Web Speech API");
-      return;
+      alert("Votre navigateur ne supporte pas la Web Speech API")
+      return
     }
     // @ts-ignore
-    const recognition = new window.webkitSpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.lang = "fr-FR";
+    const recognition = new window.webkitSpeechRecognition()
+    recognition.continuous = true
+    recognition.interimResults = true
+    recognition.lang = "fr-FR"
 
-    recognition.onstart = () => setIsRecording(true);
-    recognition.onend = () => setIsRecording(false);
+    recognition.onstart = () => setIsRecording(true)
+    recognition.onend = () => setIsRecording(false)
 
     recognition.onresult = (event) => {
-      let interimTranscript = "";
+      let interimTranscript = ""
       for (let i = event.resultIndex; i < event.results.length; i++) {
-        const transcriptSegment = event.results[i][0].transcript;
+        const transcriptSegment = event.results[i][0].transcript
         if (event.results[i].isFinal) {
-          setTranscript(transcriptSegment);
-          setText(transcriptSegment);
+          setTranscript(transcriptSegment)
+          setText(transcriptSegment)
         } else {
-          interimTranscript += transcriptSegment;
+          interimTranscript += transcriptSegment
         }
       }
-    };
+    }
 
-    if (isRecording) recognition.start();
-    else recognition.stop();
+    if (isRecording) recognition.start()
+    else recognition.stop()
 
     return () => {
-      recognition.stop();
-    };
-  }, [isRecording]);
+      recognition.stop()
+    }
+  }, [isRecording])
 
   return (
     <div className="flex flex-col items-center justify-start py-8">
@@ -102,7 +106,7 @@ const Client = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Client;
+export default Client
