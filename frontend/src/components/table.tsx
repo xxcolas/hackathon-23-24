@@ -14,7 +14,7 @@ const PatientState = ({ state }: { state: string }) => {
   switch (state) {
     case "anxious":
       return (
-        <div className="bg-red-100 text-red-400 border border-red-300 px-2 text-sm rounded-2xl flex justify-center items-center">
+        <div className="bg-purple-100 text-purple-400 border border-purple-300 px-2 text-sm rounded-2xl flex justify-center items-center">
           Anxieux
         </div>
       )
@@ -26,7 +26,7 @@ const PatientState = ({ state }: { state: string }) => {
       )
     case "angry":
       return (
-        <div className="bg-yellow-100 text-yellow-400 border border-yellow-300 px-2 text-sm rounded-2xl flex justify-center items-center">
+        <div className="bg-red-100 text-red-400 border border-red-300 px-2 text-sm rounded-2xl flex justify-center items-center">
           En colère
         </div>
       )
