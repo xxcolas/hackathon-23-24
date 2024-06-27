@@ -92,7 +92,7 @@ const Client = () => {
       />
       {!isRecording && audio && (
         <div className="m-8 flex flex-col items-center rounded-lg gap-2">
-          <p className="p-4 rounded-lg bg-gray-100 truncate min-w-96">{text}</p>
+          <p className="p-4 rounded-lg bg-gray-100 min-w-full max-w-96">{text}</p>
 
           <div className="flex flex-col md:flex-wrap gap-2 items-center w-full">
             <audio className="flex-3 w-full" src={audio} controls />
