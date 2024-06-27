@@ -1,17 +1,6 @@
 import { url } from "@/constants"
 import { User } from "@/types"
 
-export const loginWithPassword = async (
-  email: string,
-  password: string
-): Promise<User> => {
-  try {
-    return Promise.resolve({} as User)
-  } catch (error) {
-    return Promise.reject(error)
-  }
-}
-
 export const uploadAudioFileWithTranscript = async (
   userId: string,
   file: Blob,
