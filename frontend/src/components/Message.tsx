@@ -1,18 +1,17 @@
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import * as Dialog from "@radix-ui/react-dialog";
-import { Clients, type Message } from "@/types";
+import { url } from "@/constants"
+import { XMarkIcon } from "@heroicons/react/24/outline"
+import React, { useState } from "react"
+import { useSearchParams } from "react-router-dom"
+import { type Message } from "@/types"
+import * as Dialog from "@radix-ui/react-dialog"
 
-const Message = ({ data }: { data: Clients[] }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+const Message = ({ data }) => {
+  let [searchParams, setSearchParams] = useSearchParams()
+  const [message, setMessage] = useState("")
 
-  let [searchParams, setSearchParams] = useSearchParams();
-  const [message, setMessage] = useState("");
-
-  const id = searchParams.get("id") || "";
-  let client = data.find((item) => item._id === id);
-  if (!client) return null;
+  const id = searchParams.get("id") || ""
+  let client = data.find((item) => item._id === id)
+  if (!client) return null
 
   const sendMessage = (id) => {
     let practitionerMessage: Message = {
@@ -20,14 +19,14 @@ const Message = ({ data }: { data: Clients[] }) => {
       sender: "PRACTITIONER",
       date: new Date().toLocaleString(),
       type: "text",
-    };
-
-    if (message) {
-      client.messages.push(practitionerMessage);
-      setMessage("");
     }
 
-    fetch(`http://localhost:3000/client/${id}`, {
+    if (message) {
+      client.messages.push(practitionerMessage)
+      setMessage("")
+    }
+
+    fetch(`${url}/client/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,13 +35,13 @@ const Message = ({ data }: { data: Clients[] }) => {
     })
       .then((res) => {
         // scroll down the chat
-        let chat = document.querySelector(".container-messages");
-        chat.scrollTop = chat.scrollHeight;
+        let chat = document.querySelector(".container-messages")
+        chat.scrollTop = chat.scrollHeight
       })
       .catch((err) => {
-        console.error(err);
-      });
-  };
+        console.error(err)
+      })
+  }
 
   return (
     <section className="absolute animate-slideUp h-4/5 w-[400px] bg-white rounded-lg border-solid overflow-y-hidden border-blue-300 right-5 bottom-5 shadow-md">
@@ -57,7 +56,7 @@ const Message = ({ data }: { data: Clients[] }) => {
           <div
             key={index}
             data-state={item.sender === "PATIENT" ? "patient" : "practitioner"}
-            className="group chat data-[state=patient]:chat-end data-[state=practitioner]:chat-start"
+            className="group chat data-[state=patient]:chat-start data-[state=practitioner]:chat-end"
           >
             <div className="chat-bubble bg-gray-200 group-data-[state=patient]:bg-blue-600 group-data-[state=patient]:text-white text-black">
               {item.type === "text" ? (
@@ -137,7 +136,7 @@ const Message = ({ data }: { data: Clients[] }) => {
         </div>
       </form>
     </section>
-  );
-};
+  )
+}
 
-export default Message;
+export default Message
