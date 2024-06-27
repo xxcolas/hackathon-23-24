@@ -13,7 +13,7 @@ export const loginWithPassword = async (
 
 export const uploadAudioFileWithTranscript = async (file: Blob, transcript: string): Promise<User> => {
   const formData = new FormData();
-  
+
   formData.append('file', file)
   formData.append('transcript', transcript)
 
