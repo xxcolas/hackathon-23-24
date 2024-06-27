@@ -1,25 +1,26 @@
-import { Clients } from "@/types/index";
+import { url } from "@/constants"
+import { User } from "@/types/index"
 
-const getAllClient = async (): Promise<Clients[]> => {
+const getAllClient = async (): Promise<User[]> => {
   try {
-    const result = await fetch(`http://localhost:3000/client`, {
+    const result = await fetch(`${url}/client`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
       // include: "credentials",
-    });
+    })
 
     if (result.ok) {
-      const data = await result.json();
-      return data.clients;
+      const data = await result.json()
+      return data.clients
     } else {
-      throw new Error("La requête a échoué");
+      throw new Error("La requête a échoué")
     }
   } catch (error) {
-    console.error("Erreur lors de la recherche :", error);
-    throw error;
+    console.error("Erreur lors de la recherche :", error)
+    throw error
   }
-};
+}
 
-export { getAllClient };
+export { getAllClient }
