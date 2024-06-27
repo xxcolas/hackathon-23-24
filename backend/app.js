@@ -7,7 +7,6 @@ import multer from 'multer'
 import tableRoute from './src/routes/tableRoute.js'
 
 const app = express()
-
 const upload = multer({ dest: "public/uploads/" });
 
 dotenv.config({ path: ".env.local", override: true });
@@ -23,7 +22,6 @@ connectDB()
 
 initRouter(app, upload)
 tableRoute(app)
-
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running at http://${HOSTNAME}:${PORT}/`);

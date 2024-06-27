@@ -5,8 +5,9 @@ dotenv.config({ path: ".env.local", override: true });
 
 const desiredJsonObject = {
   description:
-    "- Problème de santé, - Urine partiel, - Pose de sonde urinaire, - Changement d'opération pour la pose d'un patch",
+    "Un objet JSON contenant un résumé simple du texte et un ordre de priorité. (Ex de description: Mal de dos, Fatigue, Stress)",
   priority: "low",
+  psychological_state: '"anxious" | "stable" | "angry" | "sad" | "undefined"',
 };
 
 const getChatResponse = async (userMessage) => {
@@ -24,7 +25,7 @@ const getChatResponse = async (userMessage) => {
       {
         role: "user",
         content:
-          "Je veux un résumé simple de ce texte sous forme de tirets. " +
+          "Je veux un résumé simple de ce texte. " +
           "Je veux également que tu me donnes un ordre de priorité (ex: low, medium, high). " +
           "Je veux absolument cette forme d'objet JSON et rien d'autres: " +
           JSON.stringify(desiredJsonObject) +
