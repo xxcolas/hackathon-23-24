@@ -13,7 +13,7 @@ export type Priority = "low" | "medium" | "high" | "undefined"
 export type Message = {
   text?: string
   sender: "PATIENT" | "PRACTITIONER"
-  date: string
+  date: any
   type: "text" | "audio"
   audio?: {
     file: string
