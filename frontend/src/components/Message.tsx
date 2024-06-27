@@ -2,10 +2,11 @@ import { url } from "@/constants"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import React, { useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import { type Message } from "@/types"
+import { User, type Message } from "@/types"
 import * as Dialog from "@radix-ui/react-dialog"
+import { VisuallyHidden } from "@radix-ui/themes"
 
-const Message = ({ data }) => {
+const Message = ({ data }: { data: User[] }) => {
   let [searchParams, setSearchParams] = useSearchParams()
   const [message, setMessage] = useState("")
 
@@ -65,7 +66,7 @@ const Message = ({ data }) => {
                 <div className="flex flex-col h-full flex-end">
                   <div>
                     <p>{item.text}</p>
-                    {(item.file || item.transcript) && (
+                    {item.audio && (
                       <Dialog.Root>
                         <Dialog.Trigger asChild>
                           <button className="flex mt-2 text-gray-300 hover:bg-blue-800 px-2 rounded py-1 flex-end text-sm">
@@ -74,15 +75,24 @@ const Message = ({ data }) => {
                         </Dialog.Trigger>
                         <Dialog.Portal>
                           <Dialog.Overlay className="bg-black/60 fixed inset-0" />
-                          <Dialog.Content className="fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-md bg-white p-6 focus:outline-none flex flex-col items-center gap-2">
-                            {item.file && (
+                          <Dialog.Content
+                            aria-describedby={undefined}
+                            className="fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-md bg-white p-6 focus:outline-none flex flex-col items-center gap-2"
+                          >
+                            <VisuallyHidden asChild>
+                              <Dialog.Title />
+                            </VisuallyHidden>
+                            {item.audio.file && (
                               <audio controls className="w-full">
-                                <source src={item.file} type="audio/wav" />
+                                <source
+                                  src={item.audio.file}
+                                  type="audio/wav"
+                                />
                               </audio>
                             )}
-                            {item.transcript && (
+                            {item.audio.transcript && (
                               <p className="w-full p-3 rounded bg-gray-100">
-                                {item.transcript}
+                                {item.audio.transcript}
                               </p>
                             )}
                           </Dialog.Content>
