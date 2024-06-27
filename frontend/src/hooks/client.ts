@@ -3,7 +3,7 @@ import { User } from "@/types/index"
 
 const getAllClient = async (): Promise<User[]> => {
   try {
-    const result = await fetch(`${url}/client`, {
+    const result = await fetch(`${url}/users/type/patient`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -12,8 +12,7 @@ const getAllClient = async (): Promise<User[]> => {
     })
 
     if (result.ok) {
-      const data = await result.json()
-      return data.clients
+      return await result.json();
     } else {
       throw new Error("La requête a échoué")
     }
