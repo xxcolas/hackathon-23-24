@@ -10,6 +10,41 @@ export const colorMapping = {
   high: "#f54e25",
   undefined: "#aaa",
 }
+const PatientState = ({ state }: { state: string }) => {
+  switch (state) {
+    case "anxious":
+      return (
+        <div className="bg-red-100 text-red-400 border border-red-300 px-2 text-sm rounded-2xl flex justify-center items-center">
+          Anxieux
+        </div>
+      )
+    case "stable":
+      return (
+        <div className="bg-green-100 text-green-400 border border-green-300 px-2 text-sm rounded-2xl flex justify-center items-center">
+          Stable
+        </div>
+      )
+    case "angry":
+      return (
+        <div className="bg-yellow-100 text-yellow-400 border border-yellow-300 px-2 text-sm rounded-2xl flex justify-center items-center">
+          En colère
+        </div>
+      )
+    case "sad":
+      return (
+        <div className="bg-blue-100 text-blue-400 border border-blue-300 px-2 text-sm rounded-2xl flex justify-center items-center">
+          Triste
+        </div>
+      )
+
+    default:
+      return (
+        <div className="bg-gray-100 text-gray-400 border border-gray-300 px-2 text-sm rounded-2xl flex justify-center items-center">
+          Non défini
+        </div>
+      )
+  }
+}
 
 type Props<T> = { data: T[] }
 
@@ -37,7 +72,7 @@ const Table = ({ data }: Props<User>) => {
           <tbody className="bg-white divide-y divide-gray-200">
             {data.map((item, index) => (
               <tr key={index} className="hover:bg-blue-100 text-gray-800">
-                <td className="flex justify-center ">
+                <td className="flex justify-center items-center">
                   <div
                     style={{
                       backgroundColor: colorMapping[item.priority],
@@ -45,22 +80,8 @@ const Table = ({ data }: Props<User>) => {
                     className="h-4 w-4 rounded-full"
                   />
                 </td>
-                <td className="flex justify-center">
-                  {item.psychological_state === "anxious" ? (
-                    <div className="bg-red-100 text-red-400 border border-red-300 px-2 text-sm rounded-2xl">Anxieux</div>
-                  )
-                    : item.psychological_state === "stable" ? (
-                      <div className="bg-green-100 text-green-400 border border-green-300 px-2 text-sm rounded-2xl">Stable</div>
-                    )
-                      : item.psychological_state === "angry" ? (
-                        <div className="bg-yellow-100 text-yellow-400 border border-yellow-300 px-2 text-sm rounded-2xl">En colère</div>
-                      )
-                        : item.psychological_state === "sad" ? (
-                          <div className="bg-blue-100 text-blue-400 border border-blue-300 px-2 text-sm rounded-2xl">Triste</div>
-                        )
-                          : (
-                            <div className="bg-gray-100 text-gray-400 border border-gray-300 px-2 text-sm rounded-2xl">Non défini</div>
-                          )}
+                <td>
+                  <PatientState state={item.psychological_state} />
                 </td>
                 <td className={headerClassnames}>{item.firstname}</td>
                 <td className={headerClassnames}>{item.email}</td>

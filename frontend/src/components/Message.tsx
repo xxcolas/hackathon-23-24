@@ -1,18 +1,18 @@
-import { url } from "@/constants";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { User, type Message } from "@/types";
-import * as Dialog from "@radix-ui/react-dialog";
-import { VisuallyHidden } from "@radix-ui/themes";
+import { url } from "@/constants"
+import { XMarkIcon } from "@heroicons/react/24/outline"
+import React, { useState } from "react"
+import { useSearchParams } from "react-router-dom"
+import { User, type Message } from "@/types"
+import * as Dialog from "@radix-ui/react-dialog"
+import { VisuallyHidden } from "@radix-ui/themes"
 
 const Message = ({ data }: { data: User[] }) => {
-  let [searchParams, setSearchParams] = useSearchParams();
-  const [message, setMessage] = useState("");
+  let [searchParams, setSearchParams] = useSearchParams()
+  const [message, setMessage] = useState("")
 
-  const id = searchParams.get("id") || "";
-  let client = data.find((item) => item._id === id);
-  if (!client) return null;
+  const id = searchParams.get("id") || ""
+  let client = data.find((item) => item._id === id)
+  if (!client) return null
 
   const sendMessage = (id) => {
     let practitionerMessage: Message = {
@@ -20,11 +20,11 @@ const Message = ({ data }: { data: User[] }) => {
       sender: "PRACTITIONER",
       date: new Date().toDateString(),
       type: "text",
-    };
+    }
 
     if (message) {
-      client.messages.push(practitionerMessage);
-      setMessage("");
+      client.messages.push(practitionerMessage)
+      setMessage("")
     }
 
     fetch(`${url}/client/${id}`, {
@@ -36,13 +36,13 @@ const Message = ({ data }: { data: User[] }) => {
     })
       .then((res) => {
         // scroll down the chat
-        let chat = document.querySelector(".container-messages");
-        chat.scrollTop = chat.scrollHeight;
+        let chat = document.querySelector(".container-messages")
+        chat.scrollTop = chat.scrollHeight
       })
       .catch((err) => {
-        console.error(err);
-      });
-  };
+        console.error(err)
+      })
+  }
 
   return (
     <section className="absolute animate-slideUp h-4/5 w-[400px] bg-white rounded-lg border-solid overflow-y-hidden border-blue-300 right-5 bottom-5 shadow-md">
@@ -65,11 +65,11 @@ const Message = ({ data }: { data: User[] }) => {
               ) : (
                 <div className="flex flex-col h-full flex-end">
                   <div>
-                    <p>{item.text ?? item?.audio?.summary }</p>
+                    <p>{item.text ?? item?.audio?.summary}</p>
                     {item.audio && (
                       <Dialog.Root>
                         <Dialog.Trigger asChild>
-                          <button className="flex mt-2 text-gray-300 hover:bg-blue-800 px-2 rounded py-1 flex-end text-sm">
+                          <button className="flex mt-2 text-gray-300 group-data-[state=patient]:text-blue-500 font-semibold hover:bg-black/20 px-2 rounded py-1 flex-end text-sm">
                             Plus
                           </button>
                         </Dialog.Trigger>
@@ -148,7 +148,7 @@ const Message = ({ data }: { data: User[] }) => {
         </div>
       </form>
     </section>
-  );
-};
+  )
+}
 
-export default Message;
+export default Message
