@@ -23,7 +23,8 @@ export const updateUser = async (req, res) => {
 
   const updateUserResponse = await updateUserById(id, { 
     messages: [...user.messages, audioMessage], 
-    priority: analysis.priority 
+    priority: analysis.priority,
+    psychological_state: analysis.psychological_state
   })
 
   return res.status(200).json(updateUserResponse)

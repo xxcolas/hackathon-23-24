@@ -7,6 +7,7 @@ const desiredJsonObject = {
   description:
     "Un objet JSON contenant un résumé simple du texte et un ordre de priorité. (Ex de description: Mal de dos, Fatigue, Stress)",
   priority: "low",
+  psychological_state: '"anxious" | "stable" | "angry" | "sad" | "undefined"',
 };
 
 const getChatResponse = async (userMessage) => {
@@ -29,7 +30,7 @@ const getChatResponse = async (userMessage) => {
           "Je veux absolument cette forme d'objet JSON et rien d'autres: " +
           JSON.stringify(desiredJsonObject) +
           "Voici le texte que tu vas devoir traiter: " +
-          userMessage,
+          "Les douleurs sont principalement autour de la cicatrice et parfois elles irradient dans mon bas-ventre. Sur une échelle de 1 à 10, je dirais qu'elles sont souvent autour de 7 ou 8. Cela me préoccupe beaucoup car j'ai du mal à bouger et ça affecte mon moral. Je me sens vraiment déprimée et anxieuse à cause de ça.",
       },
     ],
   });

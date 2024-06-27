@@ -1,18 +1,21 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const messageSchema = new Schema({
-  text: String,
-  type: String,
-  date: Date,
-  sender: String,
-  audio: {
-    file: String,
-    transcript: String,
-    summary: String,
+const messageSchema = new Schema(
+  {
+    text: String,
+    type: String,
+    date: Date,
+    sender: String,
+    audio: {
+      file: String,
+      transcript: String,
+      summary: String,
+    },
   },
-}, { _id : false })
+  { _id: false }
+);
 
 const userSchema = new Schema({
   _id: mongoose.Types.ObjectId,
@@ -20,9 +23,10 @@ const userSchema = new Schema({
   password: String,
   type: String,
   priority: String,
+  psychological_state: String,
   messages: [messageSchema],
-})
+});
 
-const User = mongoose.model('user', userSchema)
+const User = mongoose.model("user", userSchema);
 
-export default User
+export default User;

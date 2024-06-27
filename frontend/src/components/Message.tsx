@@ -52,7 +52,7 @@ const Message = ({ data }: { data: User[] }) => {
           <XMarkIcon className="size-4" />
         </button>
       </article>
-      <div className="container-messages overflow-y-scroll h-[500px] pb-28">
+      <div className="container-messages overflow-y-scroll h-full pb-28">
         {client.messages.map((item, index) => (
           <div
             key={index}

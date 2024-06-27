@@ -3,12 +3,12 @@ export type User = {
   firstname: string
   priority: Priority
   type: "PATIENT" | "PRACTITIONER"
-  description: string
-  descriptions: string[]
   tel: string
   _id: string
   messages: Message[]
+  psychological_state: PsychologicalState 
 }
+export type PsychologicalState = "anxious" | "stable" | "angry" | "sad" | "undefined"
 export type Priority = "low" | "medium" | "high" | "undefined"
 export type Message = {
   text?: string
