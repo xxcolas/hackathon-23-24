@@ -74,12 +74,12 @@ const Client = () => {
         onClick={handleRecording}
         data-state={isRecording ? "recording" : "idle"}
         data-audio={audio ? "true" : "false"}
-        className="bg-green-400 data-[state=recording]:bg-red-500 flex justify-center items-center text-white font-bold size-28 p-8 rounded-full data-[state=idle]:data-[audio=true]:rounded-lg"
+        className="bg-green-400 data-[state=recording]:bg-red-500 flex justify-center items-center text-white font-bold size-36 p-12 rounded-full"
       >
         {isRecording ? (
           <StopIcon />
         ) : audio ? (
-          "Recommencer"
+          "RECOMMENCER"
         ) : (
           <MicrophoneIcon />
         )}
