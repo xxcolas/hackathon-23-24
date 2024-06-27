@@ -1,30 +1,30 @@
-import { url } from "@/constants"
-import { XMarkIcon } from "@heroicons/react/24/outline"
-import React, { useState } from "react"
-import { useSearchParams } from "react-router-dom"
-import { User, type Message } from "@/types"
-import * as Dialog from "@radix-ui/react-dialog"
-import { VisuallyHidden } from "@radix-ui/themes"
+import { url } from "@/constants";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import React, { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { User, type Message } from "@/types";
+import * as Dialog from "@radix-ui/react-dialog";
+import { VisuallyHidden } from "@radix-ui/themes";
 
 const Message = ({ data }: { data: User[] }) => {
-  let [searchParams, setSearchParams] = useSearchParams()
-  const [message, setMessage] = useState("")
+  let [searchParams, setSearchParams] = useSearchParams();
+  const [message, setMessage] = useState("");
 
-  const id = searchParams.get("id") || ""
-  let client = data.find((item) => item._id === id)
-  if (!client) return null
+  const id = searchParams.get("id") || "";
+  let client = data.find((item) => item._id === id);
+  if (!client) return null;
 
   const sendMessage = (id) => {
     let practitionerMessage: Message = {
       text: message,
       sender: "PRACTITIONER",
-      date: new Date().toLocaleString(),
+      date: new Date().toDateString(),
       type: "text",
-    }
+    };
 
     if (message) {
-      client.messages.push(practitionerMessage)
-      setMessage("")
+      client.messages.push(practitionerMessage);
+      setMessage("");
     }
 
     fetch(`${url}/client/${id}`, {
@@ -36,13 +36,13 @@ const Message = ({ data }: { data: User[] }) => {
     })
       .then((res) => {
         // scroll down the chat
-        let chat = document.querySelector(".container-messages")
-        chat.scrollTop = chat.scrollHeight
+        let chat = document.querySelector(".container-messages");
+        chat.scrollTop = chat.scrollHeight;
       })
       .catch((err) => {
-        console.error(err)
-      })
-  }
+        console.error(err);
+      });
+  };
 
   return (
     <section className="absolute animate-slideUp h-4/5 w-[400px] bg-white rounded-lg border-solid overflow-y-hidden border-blue-300 right-5 bottom-5 shadow-md">
@@ -104,7 +104,9 @@ const Message = ({ data }: { data: User[] }) => {
               )}
             </div>
             <div className="chat-footer">
-              <time className="text-xs opacity-50">{item.date}</time>
+              <time className="text-xs opacity-50">
+                {new Date(item.date).toDateString()}
+              </time>
             </div>
           </div>
         ))}
@@ -146,7 +148,7 @@ const Message = ({ data }: { data: User[] }) => {
         </div>
       </form>
     </section>
-  )
-}
+  );
+};
 
-export default Message
+export default Message;
