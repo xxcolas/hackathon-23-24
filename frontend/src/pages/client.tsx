@@ -19,7 +19,7 @@ const Client = () => {
 
   const onStop = (recordedBlob) => {
     setBlobURL(recordedBlob.blob)
-    setAudio(recordedBlob.blob)
+    setAudio(URL.createObjectURL(recordedBlob.blob))
   }
 
   const handleRecording = () => {
