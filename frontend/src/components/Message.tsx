@@ -65,7 +65,7 @@ const Message = ({ data }: { data: User[] }) => {
               ) : (
                 <div className="flex flex-col h-full flex-end">
                   <div>
-                    <p>{item.text}</p>
+                    <p>{item.text ?? item?.audio?.summary }</p>
                     {item.audio && (
                       <Dialog.Root>
                         <Dialog.Trigger asChild>
