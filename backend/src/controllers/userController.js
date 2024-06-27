@@ -1,5 +1,5 @@
 import getChatResponse from "../services/mistralService.js"
-import { getUserById, getUserMessagesWithFile, updateUserById } from "../services/userService.js"
+import { getUserById, getUserMessagesWithFile, getUsersByType, updateUserById } from "../services/userService.js"
 
 export const updateUser = async (req, res) => {
   const { id } = req.params
@@ -36,4 +36,15 @@ export const getUser = async (req, res) => {
   user.messages = getUserMessagesWithFile(user.messages)
 
   return res.status(200).json(user)
+}
+
+export const getPatients = async (req, res) => {
+  const patients = await getUsersByType("PATIENT")
+
+  const patientsWithFile = patients.map(patient => {
+    patient.messages = getUserMessagesWithFile(patient.messages)
+    return patient
+  })
+
+  return res.status(200).json(patientsWithFile)
 }
