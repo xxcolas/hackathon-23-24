@@ -1,41 +1,52 @@
-import { url } from "@/constants";
-import { setLocalStorage } from "@/utils/localStorage";
-import React, { useState } from "react";
+import { url } from "@/constants"
+import { setLocalStorage } from "@/utils/localStorage"
+import React, { useState } from "react"
 // @ts-ignore
-import { jwtDecode } from "jwt-decode";
-import logo from "@/assets/Logo_Calmedica.svg";
+import { jwtDecode } from "jwt-decode"
+import logo from "@/assets/Logo_Calmedica.svg"
+import { AuthToken } from "@/types"
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  });
+  })
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
+    })
+  }
   const loginUser = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       const response = await fetch(`${url}/auth`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: "test@test.fr", password: "test" }),
-      });
-      const res = await response.json();
-      const { token } = res;
-      const decodedToken = jwtDecode(token);
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      })
+      const res = await response.json()
+      const { token } = res
+      const decodedToken: AuthToken = jwtDecode(token)
 
-      setLocalStorage("token", decodedToken);
+      setLocalStorage("token", decodedToken)
+      const type = decodedToken.type
+
+      if (type === "PATIENT")
+        window.location.replace(`/client?uid=${decodedToken.id}`)
+
+      if (type === "PRACTITIONER") window.location.replace(`/tables`)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
   return (
     <div className="flex min-h-screen">
       <div className="w-1/2 flex justify-center items-center bg-white">
@@ -94,7 +105,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

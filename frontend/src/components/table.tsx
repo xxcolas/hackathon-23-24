@@ -72,11 +72,37 @@ const Table = ({ data }: Props<User>) => {
                   </div>
                 </td>
                 <td className={headerClassnames}>
-                  <Modal title={`Vous vous apprétez à lancer un schéma pour ${item.firstname}`} trigger={<button className="bg-slate-200 p-2 rounded-lg text-sm">Lancer un schéma</button>}>
+                  <Modal
+                    title={`Vous vous apprétez à lancer un schéma pour ${item.firstname}`}
+                    trigger={
+                      <button className="bg-slate-200 p-2 rounded-lg text-sm">
+                        Lancer un schéma
+                      </button>
+                    }
+                  >
                     <>
                       <div className="flex flex-row space-x-2">
-                        <button className={`rounded-md p-2 bg-${psychologicalState[item.psychological_state].color}-100 text-${psychologicalState[item.psychological_state].color}-400 border border-${psychologicalState[item.psychological_state].color}-300`}>Lancer le schéma {psychologicalState[item.psychological_state].string}</button>
-                        <button className="bg-green-600 p-2 text-white rounded-md">Rappeler le patient</button>
+                        {psychologicalState[item.psychological_state].string !==
+                          "Non défini" && (
+                          <button
+                            className={`rounded-md p-2 bg-${
+                              psychologicalState[item.psychological_state].color
+                            }-100 text-${
+                              psychologicalState[item.psychological_state].color
+                            }-400 border border-${
+                              psychologicalState[item.psychological_state].color
+                            }-300`}
+                          >
+                            Lancer le schéma{" "}
+                            {
+                              psychologicalState[item.psychological_state]
+                                .string
+                            }
+                          </button>
+                        )}
+                        <button className="bg-green-600 p-2 text-white rounded-md">
+                          Rappeler le patient
+                        </button>
                       </div>
                     </>
                   </Modal>
