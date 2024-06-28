@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import User from "../models/userModel.js"
 import { getBase64FileFromPath } from "../utils/file.js"
 
@@ -34,3 +35,23 @@ export const getUserMessagesWithFile = (userMessages) => {
 export const getUsersByType = async (type) => {
   return await User.find({ type: type })
 }
+
+export const addUserMessageById = async (id, messages) => {
+  const userId = new mongoose.Types.ObjectId(id);
+  const client = await mongoose.connection.db
+    .collection("users")
+    .findOne({ _id: userId });
+
+  if (!client) {
+    return null
+  }
+
+  return await mongoose.connection.db.collection("users").updateOne(
+    { _id: userId },
+    {
+      $push: {
+        messages: messages,
+      },
+    }
+  );
+};
