@@ -1,5 +1,5 @@
 import getChatResponse from "../services/mistralService.js"
-import { getUserById, getUserMessagesWithFile, getUsersByType, updateUserById } from "../services/userService.js"
+import { addUserMessageById, getUserById, getUserMessagesWithFile, getUsersByType, updateUserById } from "../services/userService.js"
 
 export const updateUser = async (req, res) => {
   const { id } = req.params
@@ -49,3 +49,17 @@ export const getPatients = async (req, res) => {
 
   return res.status(200).json(patientsWithFile)
 }
+
+export const addUserMessage = async (req, res) => {
+  const user = await addUserMessageById(req.params.id, req.body.message);
+
+  if (!user) {
+    return res.status(404).json({ error: "User not found"})
+  }
+  
+  try {
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};

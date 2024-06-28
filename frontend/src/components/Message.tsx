@@ -27,7 +27,7 @@ const Message = ({ data }: { data: User[] }) => {
       setMessage("")
     }
 
-    fetch(`${url}/client/${id}`, {
+    fetch(`${url}/users/${id}/message`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
