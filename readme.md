@@ -38,7 +38,6 @@ Dans le .env mettre une cle API Mistral et une BDD Mongo
 
 ```bash
 cd backend
-commande pour fixture
 yarn install
 yarn start
 ```
