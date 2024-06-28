@@ -20,6 +20,7 @@ const messageSchema = new Schema(
 const userSchema = new Schema({
   _id: mongoose.Types.ObjectId,
   email: String,
+  firstname: String,
   password: String,
   type: String,
   priority: String,
